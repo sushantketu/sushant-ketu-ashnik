@@ -1,4 +1,20 @@
 # sushant-ketu-ashnik Assignment
+Introduction:
+
+Introduction & Goals
+
+Kubernetes Cluster Setup
+
+Nginx Ingress Basics & Helm
+
+Application Deployment
+
+Ansible Automation & Playbook
+
+TLS Implementation
+
+Troubleshooting & Learnings
+
 
 OS Details;
 3 Linux Ubuntu 22.04 Nodes installed on Oracle virtual box.
@@ -15,6 +31,7 @@ All configuration, automation (Ansible), and resource manifests are included for
 
 ## High-Level Steps
 
+
 1. Provision VMs (OS details, resources)
 2. Install container runtime and dependencies
 3. Bootstrap Kubernetes cluster (kubeadm)
@@ -27,9 +44,12 @@ Please see docs and code folders for deeper details and YAMLs.
 Git Frequent usable commands;
 
 git status                     # To see what's changed
+
 git add .                      # To stage all files for commit
+
 git commit -m "Descriptive message for what I added/changed"
-git push                       #To push to our GitHub repo
+
+git push                       #To push on our GitHub repo
 
 
 
@@ -118,6 +138,7 @@ It is idempotent: TLS certs are only regenerated if missing.
 
 Ensure all paths in the playbook are correct relative to your run location on Windows.
 
+
 Step 5: README.md Sample Content
  
 # Kubernetes & Nginx Ingress Deployment Automation
@@ -136,7 +157,8 @@ Step 5: README.md Sample Content
 ## Running Playbook
 ansible-playbook -i inventory.ini deploy.yml
 
- 
+I learnt a lot while implementing the complete Kubernetes Cluster setup and Ansible automation via Playbook and everything via Helm commands.
+
 
 ## Troubleshooting
 - Check node status: `kubectl get nodes`
@@ -146,30 +168,3 @@ ansible-playbook -i inventory.ini deploy.yml
 ## Notes
 - TLS uses a self-signed certificate generated via playbook.
 
-Step 6: Interview Explanation Highlights
-Explain kubeadm initialization flow & pod networking
-
-Show Helm-based ingress-nginx installation for simplicity
-
-Discuss Ansible modular playbook and idempotency
-
-Describe TLS termination at ingress with self-signed cert
-
-Highlight troubleshooting and documentation practices
-
-Step 7: Presentation Outline for Interview
-Introduction & Goals
-
-Kubernetes Cluster Setup
-
-Nginx Ingress Basics & Helm
-
-Application Deployment
-
-Ansible Automation & Playbook
-
-TLS Implementation
-
-Demo & Access
-
-Troubleshooting & Learnings
