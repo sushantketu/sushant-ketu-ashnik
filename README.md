@@ -1,6 +1,31 @@
 # sushant-ketu-ashnik
+OS Details;
+3 Linux Ubuntu 22.04 Nodes installed on Oracle virtual box.
+1 Master and 2 Worker Nodes
+
+# sushant-ketu-ashnik
+
+## Project Overview
+
+This repo documents a live-looking Kubernetes setup on Oracle VirtualBox (Ubuntu 22.04) using 1 master & 2 worker nodes.  
+All configuration, automation (Ansible), and resource manifests are included for reproducibility.
+
+## High-Level Steps
+
+1. Provision VMs (OS details, resources)
+2. Install container runtime and dependencies
+3. Bootstrap Kubernetes cluster (kubeadm)
+4. Apply a CNI network plugin (Calico/Flannel)
+5. Deploy example workloads (nginx)
+6. Troubleshoot and verify cluster health
+
+Please see docs and code folders for deeper details and YAMLs.
+
 
 Step 1: Kubernetes Local 3-Node Cluster Setup
+Created k8s manifests files under k8s-manifests folder;
+named: nginx-deployment.yaml & nginx-service.yaml
+
 Install on Master and Worker Nodes:
  
 sudo apt-get update
@@ -27,6 +52,7 @@ Add repo and update:
  
 helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
 helm repo update
+
 Install ingress controller:
 
  
