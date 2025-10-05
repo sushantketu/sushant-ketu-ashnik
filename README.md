@@ -69,11 +69,23 @@ Create basic ingress resource manifest to route traffic under / path.
 
 Step 3: Deployed 'Hello World' Application
 Sample Deployment manifest hello-deployment.yaml:
+kubectl apply -f k8s-manifests/hello-deployment.yaml
 
 Added a service to expose Hello World (k8s-manifests/hello-service.yaml)
- 
- Created a new file:
+ kubectl apply -f k8s-manifests/hello-service.yaml
+
+ Created a new ingress file:
 k8s-manifests/hello-ingress.yaml
+kubectl apply -f k8s-manifests/hello-ingress.yaml
+
+# Verify pods are running
+kubectl get pods
+
+# Verify services are created
+kubectl get svc
+
+# Verify ingress is created and routing
+kubectl get ingress
 
 
 Step 4: Ansible Playbook Structure
