@@ -152,7 +152,7 @@ Step 5: README.md Sample Content
 # Kubernetes & Nginx Ingress Deployment Automation
 
 ## Prerequisites
-- 3 Linux VMs for Kubernetes Master and Workers
+- 3 Linux VMs for Kubernetes Master node and Workers node
 - Kubernetes 1.22+
 - Ansible 2.9+
 - Helm 3
