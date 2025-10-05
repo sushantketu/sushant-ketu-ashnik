@@ -1,0 +1,26 @@
+- name: Generate TLS key and cert for ingress
+  shell: |
+    openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+      -subj "/CN=myapp.local/O=demo" \
+      -keyout tls/selfsigned.key -out tls/selfsigned.crt
+  args:
+    creates: tls/selfsigned.crt
+
+- name: Create Kubernetes TLS secret manifest
+  copy:
+    dest: k8s-manifests/tls-secret.yaml
+    content: |
+      apiVersion: v1
+      kind: Secret
+      metadata:
+        name: myapp-tls
+        namespace: default
+      type: kubernetes.io/tls
+      data:
+        tls.crt: {{ lookup('file', 'tls/selfsigned.crt') | b64encode }}
+        tls.key: {{ lookup('file', 'tls/selfsigned.key') | b64encode }}
+
+- name: Apply TLS secret
+  kubernetes.core.k8s:
+    state: present
+    src: k8s-manifests/tls-secret.yaml
