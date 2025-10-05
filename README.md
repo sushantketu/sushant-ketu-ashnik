@@ -90,91 +90,30 @@ kubectl get ingress
 
 Step 4: Ansible Playbook Structure
  
-- hosts: master
-  become: yes
-  tasks:
-    - name: Install Helm
-      shell: |
-        curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 |  
-      args:
-        creates: /usr/local/bin/helm
+Running the Playbook
+ 
+ansible-playbook -i inventory playbook.yml -c local
+Inventory file may contain:
 
-    - name: Add ingress-nginx repo
-      shell: helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+text
+localhost ansible_connection=local
+This command runs the playbook locally, authenticating to the Kubernetes cluster using the local kubeconfig.
 
-    - name: Update Helm repos
-      shell: helm repo update
+Verifying Deployment
+Check the TLS secret:
 
-    - name: Install nginx ingress controller
-      shell: |
-        helm upgrade --install nginx-ingress ingress-nginx/ingress-nginx --namespace kube-system
+ 
+kubectl get secret myapp-tls -n default -o yaml
+Check ingress and app status:
 
-    - name: Deploy Hello World app
-      kubernetes.core.k8s:
-        state: present
-        definition: '{{ lookup("file", "hello-world-deployment.yaml") }}'
+ 
+kubectl get ingress,deploy,svc
+Notes
+The playbook performs all operations locally without SSH to Kubernetes nodes.
 
-    - name: Deploy Hello World service
-      kubernetes.core.k8s:
-        state: present
-        definition: '{{ lookup("file", "hello-world-service.yaml") }}'
+It is idempotent: TLS certs are only regenerated if missing.
 
-    - name: Deploy Ingress
-      kubernetes.core.k8s:
-        state: present
-        definition: '{{ lookup("file", "hello-world-ingress.yaml") }}'
-
-- hosts: master
-  become: yes
-  tasks:
-    - name: Generate self-signed TLS cert
-      shell: |
-        openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
-        -keyout tls.key -out tls.crt \
-        -subj "/CN=example.com/O=example.com"
-      args:
-        creates: tls.crt
-
-    - name: Create TLS secret
-      kubernetes.core.k8s:
-        state: present
-        namespace: default
-        definition: |
-          apiVersion: v1
-          kind: Secret
-          metadata:
-            name: tls-secret
-          data:
-            tls.crt: {{ lookup('file', 'tls.crt') | b64encode }}
-            tls.key: {{ lookup('file', 'tls.key') | b64encode }}
-          type: kubernetes.io/tls
-
-    - name: Deploy Ingress with TLS
-      kubernetes.core.k8s:
-        state: present
-        definition: |
-          apiVersion: networking.k8s.io/v1
-          kind: Ingress
-          metadata:
-            name: hello-world-ingress-tls
-            annotations:
-              nginx.ingress.kubernetes.io/rewrite-target: /
-          spec:
-            tls:
-            - hosts:
-              - example.com
-              secretName: tls-secret
-            rules:
-            - host: example.com
-              http:
-                paths:
-                - path: /
-                  pathType: Prefix
-                  backend:
-                    service:
-                      name: hello-world
-                      port:
-                        number: 80
+Ensure all paths in the playbook are correct relative to your run location on Windows.
 
 Step 5: README.md Sample Content
  

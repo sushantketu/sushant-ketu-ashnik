@@ -24,3 +24,9 @@
   kubernetes.core.k8s:
     state: present
     src: k8s-manifests/tls-secret.yaml
+
+- name: Apply Nginx ingress manifest
+  kubernetes.core.k8s:
+    state: present
+    src: k8s-manifests/ingress-nginx.yaml
+
