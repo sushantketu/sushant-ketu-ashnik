@@ -3,6 +3,9 @@
 OS Details;
 3 Linux Ubuntu 22.04 Nodes installed on Oracle virtual box.
 1 Master and 2 Worker Nodes
+Space: 3 GB RAM each node
+35 GB HDD for Master Node 
+30 GB HDD for Worker Nodes
 
 
 ## Project Overview
@@ -95,7 +98,7 @@ Running the Playbook
 ansible-playbook -i inventory playbook.yml -c local
 Inventory file may contain:
 
-text
+  
 localhost ansible_connection=local
 This command runs the playbook locally, authenticating to the Kubernetes cluster using the local kubeconfig.
 
