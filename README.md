@@ -153,6 +153,7 @@ Step 5: README.md Sample Content
 
 ## Prerequisites
 - 3 Linux VMs for Kubernetes Master node and Workers node
+- Nginx 1.28.0
 - Kubernetes 1.22+
 - Ansible 2.9+
 - Helm 3
