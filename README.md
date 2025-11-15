@@ -29,7 +29,7 @@ VS Code on the Window Local system
 
 ## Project Overview
 
-This repo documents a live-looking Kubernetes setup on Oracle VirtualBox (Ubuntu 22.04) using 1 master & 2 worker nodes.  
+This repo documents a live Kubernetes setup on Oracle VirtualBox (Ubuntu 22.04) using 1 master & 2 worker nodes.  
 All configuration, automation (Ansible), and resource manifests are included for reproducibility.
 
 ## High-Level Steps
@@ -38,7 +38,7 @@ All configuration, automation (Ansible), and resource manifests are included for
 1. Provision VMs (OS details, resources)
 2. Install container runtime and dependencies
 3. Bootstrap Kubernetes cluster (kubeadm)
-4. Apply a CNI network plugin (Calico/Flannel)
+4. Apply a CNI network plugin (Calico)
 5. Deploy example workloads (nginx)
 6. Troubleshoot and verify cluster health
 
@@ -123,8 +123,8 @@ Step 4: Ansible Playbook Structure
 Running the Playbook
  
 ansible-playbook -i inventory playbook.yml -c local
+
 Inventory file may contain:
-  
 localhost ansible_connection=local
 
 This command runs the playbook locally, authenticating to the Kubernetes cluster using the local kubeconfig.
@@ -132,11 +132,9 @@ This command runs the playbook locally, authenticating to the Kubernetes cluster
 Verifying Deployment
 
 Check the TLS secret:
- 
 kubectl get secret myapp-tls -n default -o yaml
 
 Check ingress and app status:
- 
  kubectl get ingress,deploy,svc
 
 Notes
