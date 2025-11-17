@@ -158,7 +158,7 @@ Step 5: README.md Sample Content
 
 ## Setup Steps
 1. Prepare Kubernetes 3-node cluster using kubeadm.
-2. Run Ansible playbook to install nginx ingress and deploy the Hello World app.
+2. Run Ansible playbook to install ingress nginx and deploy the Hello World app.
 3. Access the app via ingress.
 
 ## Running Playbook
